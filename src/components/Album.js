@@ -1,7 +1,6 @@
- import React, { Component } from 'react';
- import albumData from './../data/albums';
- import { Link } from 'react-router-dom';
-
+import React, { Component } from 'react';
+import albumData from './../data/albums';
+import PlayerBar from './PlayerBar';
 
 
 class Album extends Component {
@@ -21,32 +20,41 @@ class Album extends Component {
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
-}
+    }
 
-  play() {
-    this.audioElement.play();
-    this.setState({ isPlaying: true });
-  }
+    play() {
+        this.audioElement.play();
+        this.setState({ isPlaying: true });
+    }
 
-  pause() {
-   this.audioElement.pause();
-   this.setState({ isPlaying: false });
- }
+    pause() {
+        this.audioElement.pause();
+        this.setState({ isPlaying: false });
+    }
 
- setSong(song) {
-   this.audioElement.src = song.audioSrc;
-   this.setState({ currentSong: song });
- }
+    setSong(song) {
+        this.audioElement.src = song.audioSrc;
+        this.setState({ currentSong: song });
+    }
 
- handleSongClick(song) {
-   const isSameSong = this.state.currentSong === song;
-   if (this.state.isPlaying && isSameSong) {
-     this.pause();
-   } else {
-     if (!isSameSong) { this.setSong(song); }
-     this.play();
-   }
-}
+    handleSongClick(song) {
+        const isSameSong = this.state.currentSong === song;
+        if (this.state.isPlaying && isSameSong) {
+        this.pause();
+        } else {
+        if (!isSameSong) { this.setSong(song); }
+        this.play();
+        }
+    }
+
+
+    handlePrevClick() {
+        const currentIndex = this.state.album.songs.findIndex(song => this.state.currentSong === song);
+        const newIndex = Math.max(0, currentIndex - 1);
+        const newSong = this.state.album.songs[newIndex];
+        this.setSong(newSong);
+        this.play();
+    }
 
 
     audioConfig(song, index) {
@@ -55,11 +63,11 @@ class Album extends Component {
     if (this.state.hovering === false && this.state.isPlaying === false) {
         return index +1; 
         } else if (this.state.hovering === index + 1 && this.state.isPlaying === false) {
-        return <i className="play icon" ></i>;
+        return <i className="ion-play"></i>;
         } else if (this.state.hovering === index + 1 && this.state.isPlaying && isSameSong) {
-            return <i className="pause icon" ></i>;
+            return <i className="ion-pause" ></i>;
         } else if (this.state.hovering === false && this.state.isPlaying && isSameSong) {
-            return <i className="pause icon" ></i>;
+            return <i className="ion-pause" ></i>;
         } else if (this.state.hovering === index + 1 && this.state.isPlaying === false ) {
             return index + 1;
         } else if (!this.state.hovering === false) {
@@ -112,6 +120,12 @@ class Album extends Component {
               }
           </tbody>
         </table>
+        <PlayerBar 
+            isPlaying={this.state.isPlaying} 
+            currentSong={this.state.currentSong} 
+            handleSongClick={() => this.handleSongClick(this.state.currentSong)}
+            handlePreClick={() => this.handleSongClick()}
+        />
       </section>
     );
   }
