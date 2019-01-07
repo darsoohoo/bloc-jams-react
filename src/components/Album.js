@@ -4,24 +4,24 @@
 
 
 
- class Album extends Component {
-   constructor(props) {
-     super(props);
+class Album extends Component {
+    constructor(props) {
+        super(props);
     const album = albumData.find( album => {
-      return album.slug === this.props.match.params.slug
+        return album.slug === this.props.match.params.slug
     });
 
 
     this.state = {
-      album: album,
-      currentSong: album.songs[0],
-      isPlaying: false,
-      hovering: false
+        album: album,
+        currentSong: album.songs[0],
+        isPlaying: false,
+        hovering: false
     };
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
-  }
+}
 
   play() {
     this.audioElement.play();
@@ -46,29 +46,28 @@
      if (!isSameSong) { this.setSong(song); }
      this.play();
    }
- }
+}
 
 
+    audioConfig(song, index) {
 
- audioConfig(song, index) {
-  const isSameSong = this.state.currentSong === song;
-  // If it is hovering and is not playing and is not the same song
-  if (this.state.hovering === index + 1 && !this.state.isPlaying && !isSameSong) {
-    return <span> <i className="play" ></i> </span>;
-  } else if (this.state.hovering === index + 1 && this.state.isPlaying){
-    return <span> <i className="pause" ></i> </span>;
-  } else if (isSameSong && this.state.isPlaying) {
-    return <span> <i className="pause" ></i> </span>;
-  } else if (isSameSong && !this.state.isPlaying) {
-    return <span> <i className="play" ></i> </span>;
-  } else {
-    return index + 1;
-  }
-};
-
-
-
-
+    const isSameSong = this.state.currentSong === song;
+    if (this.state.hovering === false && this.state.isPlaying === false) {
+        return index +1; 
+        } else if (this.state.hovering === index + 1 && this.state.isPlaying === false) {
+        return <i className="play icon" ></i>;
+        } else if (this.state.hovering === index + 1 && this.state.isPlaying && isSameSong) {
+            return <i className="pause icon" ></i>;
+        } else if (this.state.hovering === false && this.state.isPlaying && isSameSong) {
+            return <i className="pause icon" ></i>;
+        } else if (this.state.hovering === index + 1 && this.state.isPlaying === false ) {
+            return index + 1;
+        } else if (!this.state.hovering === false) {
+            return index + 1;
+        } else if (this.state.hovering === false) {
+            return index + 1;
+        }
+    };
 
 
 
@@ -101,7 +100,7 @@
                     className="song" 
                     key={index} 
                     onClick={() => this.handleSongClick(song)} 
-                    onMouseEnter={() => this.setState({ hovering: index + 1})}
+                    onMouseEnter={() => this.setState({ hovering: index +1})}
                     onMouseLeave={() => this.setState({ hovering: false})}
                   >
                   
