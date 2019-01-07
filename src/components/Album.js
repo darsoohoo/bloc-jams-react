@@ -2,6 +2,8 @@
  import albumData from './../data/albums';
  import { Link } from 'react-router-dom';
 
+
+
  class Album extends Component {
    constructor(props) {
      super(props);
@@ -13,7 +15,8 @@
     this.state = {
       album: album,
       currentSong: album.songs[0],
-      isPlaying: false
+      isPlaying: false,
+      hovering: false
     };
 
     this.audioElement = document.createElement('audio');
@@ -45,6 +48,30 @@
    }
  }
 
+
+
+ audioConfig(song, index) {
+  const isSameSong = this.state.currentSong === song;
+  // If it is hovering and is not playing and is not the same song
+  if (this.state.hovering === index + 1 && !this.state.isPlaying && !isSameSong) {
+    return <span> <i className="play" ></i> </span>;
+  } else if (this.state.hovering === index + 1 && this.state.isPlaying){
+    return <span> <i className="pause" ></i> </span>;
+  } else if (isSameSong && this.state.isPlaying) {
+    return <span> <i className="pause" ></i> </span>;
+  } else if (isSameSong && !this.state.isPlaying) {
+    return <span> <i className="play" ></i> </span>;
+  } else {
+    return index + 1;
+  }
+};
+
+
+
+
+
+
+
   render() {
     return (
       <section className='albums'>
@@ -52,7 +79,6 @@
           <img id="album-cover-art" src={this.state.album.albumCover} alt={this.state.album.title} />
           <div className="album-details">
             <h1 id="album-title">{this.state.album.title}</h1>
-            <h1 id="album-title">{this.state.album.title} hgndfi</h1>
             <h2 className="artist">{this.state.album.artist}</h2>
             <div id="release-info">{this.state.album.releaseInfo}</div>
           </div>
@@ -71,8 +97,15 @@
             </tr>
               {
                 this.state.album.songs.map( (song, index) =>
-                  <tr className="song" key={index} onClick={() => this.handleSongClick(song)} >
-                  <td>{(song, index)}</td>
+                  <tr 
+                    className="song" 
+                    key={index} 
+                    onClick={() => this.handleSongClick(song)} 
+                    onMouseEnter={() => this.setState({ hovering: index + 1})}
+                    onMouseLeave={() => this.setState({ hovering: false})}
+                  >
+                  
+                  <td>{this.audioConfig(song, index)} </td>
                   <td>{song.title}</td>
                   <td>{(song.duration)}</td>
                   </tr>
