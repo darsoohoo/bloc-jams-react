@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './PlayerBar.css';
 
 class PlayerBar extends Component {
+
     render() {
         return (
             <section className="player-bar">
