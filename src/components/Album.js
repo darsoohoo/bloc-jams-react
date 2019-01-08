@@ -18,12 +18,33 @@ class Album extends Component {
         currentTime: 0,
         duration: album.songs[0].duration, 
         isPlaying: false,
-        hovering: false
+        hovering: false,
+        volume: .5
     };
 
     this.audioElement = document.createElement('audio');
     this.audioElement.src = album.songs[0].audioSrc;
     }
+
+
+/*
+    formatTime(seconds) {
+        if (isNaN(seconds)) { return "-:--"; }
+        const wholeSeconds = Math.floor(seconds);
+        const minutes = Math.floor(wholeSeconds / 60);
+        const remainingSeconds = wholeSeconds % 60;
+        let output = minutes + ':';
+    
+        if (remainingSeconds < 10) {
+          output += '0';
+        }
+        output += remainingSeconds;
+        return output;
+    }*/
+    
+
+
+
 
     componentDidMount() {
         this.eventListeners = {
@@ -93,19 +114,18 @@ class Album extends Component {
         this.setState({ currentTime: newTime });
     }
 
-
     formatTime(seconds) {
-        if (isNaN(seconds)) { return "-:--"; }
-        const wholeSeconds = Math.floor(seconds);
-        const minutes = Math.floor(wholeSeconds / 60);
-        const remainingSeconds = wholeSeconds % 60;
-        let output = minutes + ':';
-        if (remainingSeconds < 10) {
-          output += '0';
-        }
-        output += remainingSeconds;
-        return output;
+        const min = String(Math.floor(seconds/60)+10).substring(1);
+        const sec = String(Math.floor((seconds%(1000*60)))+100).substring(1);
+        return min + ":" + sec;
     }
+
+
+    handleVolumeChange(e) {
+        const newVolume = e.target.value;
+        this.audioElement.volume = newVolume;
+        this.setState({ volume: newVolume });
+      }
 
 
     audioConfig(song, index) {
@@ -180,6 +200,7 @@ class Album extends Component {
             handleNextClick={() => this.handleNextClick()}
             handleTimeChange={(e) => this.handleTimeChange(e)}
             formatTime={(e) => this.formatTime(e)}
+            handleVolumeChange={(e) => this.handleVolumeChange(e)}
         />
       </section>
     );
