@@ -94,8 +94,21 @@ class Album extends Component {
     }
 
 
-    audioConfig(song, index) {
+    formatTime(seconds) {
+        if (isNaN(seconds)) { return "-:--"; }
+        const wholeSeconds = Math.floor(seconds);
+        const minutes = Math.floor(wholeSeconds / 60);
+        const remainingSeconds = wholeSeconds % 60;
+        let output = minutes + ':';
+        if (remainingSeconds < 10) {
+          output += '0';
+        }
+        output += remainingSeconds;
+        return output;
+    }
 
+
+    audioConfig(song, index) {
     const isSameSong = this.state.currentSong === song;
     if (this.state.hovering === false && this.state.isPlaying === false) {
         return index +1; 
@@ -166,6 +179,7 @@ class Album extends Component {
             handlePrevClick={() => this.handlePrevClick()}
             handleNextClick={() => this.handleNextClick()}
             handleTimeChange={(e) => this.handleTimeChange(e)}
+            formatTime={(e) => this.formatTime(e)}
         />
       </section>
     );
