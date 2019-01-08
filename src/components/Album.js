@@ -58,7 +58,6 @@ class Album extends Component {
 
 
     audioConfig(song, index) {
-
     const isSameSong = this.state.currentSong === song;
     if (this.state.hovering === false && this.state.isPlaying === false) {
         return index +1; 
