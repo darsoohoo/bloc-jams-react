@@ -7,3 +7,14 @@ table {
 td {
     font: bold;
 }
+
+
+#album-cover-art{
+    height: 300px;
+    width: 300px;
+}
+
+.albums {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}

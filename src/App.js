@@ -13,18 +13,19 @@ class App extends Component {
         <header className="mdl-layout__header">
         <div class="mdl-layout__header-row">
           <nav className="mdl-navigation mdl-layout--large-screen-only">
-          <h1 classNAme="mdl-layout-title">Bloc Jams</h1>
+          <h1 className="mdl-layout-title">Bloc Jams</h1>
             <Link className="mdl-navigation__link" to='/'>Landing</Link>
             <Link Link className="mdl-navigation__link" to='/library'>Library</Link>
           </nav>          
         </div>
         </header>
+  
         <main className="mdl-layout__content page-content">
-        
            <Route exact path="/" component={Landing} />
            <Route path="/library" component={Library} />
            <Route path="/album/:slug" component={Album} />
          </main>
+      
       </div>
     );
   }

@@ -4,3 +4,10 @@
     align-items: center;
 
 }
+
+.player-bar {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 300px;
+    padding-left: 300px;
+}
