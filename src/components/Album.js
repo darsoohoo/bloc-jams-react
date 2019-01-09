@@ -27,24 +27,6 @@ class Album extends Component {
     }
 
 
-/*
-    formatTime(seconds) {
-        if (isNaN(seconds)) { return "-:--"; }
-        const wholeSeconds = Math.floor(seconds);
-        const minutes = Math.floor(wholeSeconds / 60);
-        const remainingSeconds = wholeSeconds % 60;
-        let output = minutes + ':';
-    
-        if (remainingSeconds < 10) {
-          output += '0';
-        }
-        output += remainingSeconds;
-        return output;
-    }*/
-    
-
-
-
 
     componentDidMount() {
         this.eventListeners = {
@@ -160,7 +142,7 @@ class Album extends Component {
             <div id="release-info">{this.state.album.releaseInfo}</div>
           </div>
         </section>
-        <table id="song-list">
+        <table id="song-list mdl-data-table mdl-js-data-table mdl-button--colored">
           <colgroup>
             <col id="song-number-column" />
             <col id="song-title-column" />
