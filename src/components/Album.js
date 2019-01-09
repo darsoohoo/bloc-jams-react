@@ -27,7 +27,6 @@ class Album extends Component {
     }
 
 
-
     componentDidMount() {
         this.eventListeners = {
             timeupdate: e => {
