@@ -7,34 +7,38 @@ class PlayerBar extends Component {
         return (
             <section className="player-bar">
                 <section id="buttons">
-                    <button id="previous" onClick={this.props.handlePrevClick}>
-                        <span className="ion-skip-backward"></span>
+                    <button className="ion-skip-backward mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="previous" onClick={this.props.handlePrevClick}>
+                        
                     </button>
-                    <button id="play-pause" onClick={this.props.handleSongClick} >
-                        <span className={this.props.isPlaying ? 'pause icon' : 'play icon'}></span>
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="play-pause" onClick={this.props.handleSongClick}>
+                      <span className={this.props.isPlaying ? 'ion-pause' : 'ion-play'}></span>
                     </button>
-                    <button id="next" onClick={this.props.handleNextClick}>
-                        <span className="ion-skip-forward"></span>
+ 
+                    <button className="ion-skip-forward mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="next" onClick={this.props.handleNextClick}>
+                        
                     </button>
                     </section>
                     <section id="time-control">
                     <div className="current-time">{this.props.formatTime(this.props.currentTime)}</div>
+                    <div className="seek-bar">
                     <input 
                         type="range" 
-                        className="seek-bar" 
+                        className="seek-bar mdl-slider mdl-js-slider" 
                         value={(this.props.currentTime / this.props.duration) || 0} 
                         max="1" 
                         min="0" 
                         step="0.01" 
                         onChange={this.props.handleTimeChange}
                     />   
+                    </div>
                     <div className="total-time">{this.props.formatTime(this.props.duration)}</div> 
                     </section>
-                    <section id="volume-control">
+                    <section  id="volume-control">
+                        <div className="seek-bar">
                         <div className="icon ion-volume-low"></div>
                         <input 
                         type="range" 
-                        className="seek-bar" 
+                        className="seek-bar mdl-slider mdl-js-slider" 
                         value={this.props.volume}
                         max="1"
                         min="0"
@@ -42,6 +46,7 @@ class PlayerBar extends Component {
                         onChange={this.props.handleVolumeChange}
                         />
                         <div className="icon ion-volume-high"></div>
+                        </div>
                 </section>
             </section>
         );

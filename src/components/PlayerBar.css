@@ -1,0 +1,6 @@
+#volume-control, #time-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
